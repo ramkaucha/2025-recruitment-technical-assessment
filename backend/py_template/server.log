@@ -1,0 +1,45 @@
+ * Serving Flask app 'devdonalds'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8080
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 251-856-585
+127.0.0.1 - - [25/Feb/2025 23:02:34] "[33mGET / HTTP/1.1[0m" 404 -
+127.0.0.1 - - [25/Feb/2025 23:02:35] "[31m[1mGET /summary?name=nothing HTTP/1.1[0m" 400 -
+nothing
+{'type': 'ingredient', 'name': 'beef', 'cookTime': 2}
+Cookbook keys before: []
+127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2025 23:02:35] "[31m[1mGET /summary?name=beef HTTP/1.1[0m" 400 -
+beef
+{'type': 'recipe', 'name': 'Cheese', 'requiredItems': [{'name': 'Not Real', 'quantity': 1}]}
+Cookbook keys before: ['Beef']
+127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2025 23:02:35] "[31m[1mGET /summary?name=Cheese HTTP/1.1[0m" 400 -
+Cheese
+{'type': 'recipe', 'name': 'Skibidi', 'requiredItems': [{'name': 'Bruh', 'quantity': 1}]}
+Cookbook keys before: ['Beef', 'Cheese']
+127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+{'type': 'ingredient', 'name': 'Bruh', 'cookTime': 2}
+Cookbook keys before: ['Beef', 'Cheese', 'Skibidi']
+127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2025 23:02:35] "GET /summary?name=Skibidi HTTP/1.1" 200 -
+Skibidi
+{'type': 'ingredient', 'name': 'Flour', 'cookTime': 1}
+Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh']
+127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+{'type': 'ingredient', 'name': 'Egg', 'cookTime': 3}
+Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh', 'Flour']
+127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+{'type': 'ingredient', 'name': 'Beef', 'cookTime': 5}
+Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh', 'Flour', 'Egg']
+127.0.0.1 - - [25/Feb/2025 23:02:35] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
+{'type': 'recipe', 'name': 'Pasta', 'requiredItems': [{'name': 'Flour', 'quantity': 2}, {'name': 'Egg', 'quantity': 1}]}
+Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh', 'Flour', 'Egg']
+127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+{'type': 'recipe', 'name': 'Pasta Dish', 'requiredItems': [{'name': 'Pasta', 'quantity': 2}, {'name': 'Beef', 'quantity': 3}]}
+Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh', 'Flour', 'Egg', 'Pasta']
+127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+127.0.0.1 - - [25/Feb/2025 23:02:35] "GET /summary?name=Pasta%20Dish HTTP/1.1" 200 -

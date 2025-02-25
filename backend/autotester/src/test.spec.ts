@@ -3,9 +3,7 @@ const request = require("supertest");
 describe("Task 1", () => {
   describe("POST /parse", () => {
     const getTask1 = async (inputStr) => {
-      return await request("http://localhost:8080")
-        .post("/parse")
-        .send({ input: inputStr });
+      return await request("http://localhost:8080").post("/parse").send({ input: inputStr });
     };
 
     it("example1", async () => {
@@ -21,6 +19,21 @@ describe("Task 1", () => {
     it("error case", async () => {
       const response = await getTask1("");
       expect(response.status).toBe(400);
+    });
+
+    it("handling multiple spaces correctly", async () => {
+      const res = await getTask1("Something   something  soup");
+      expect(res.body).toStrictEqual({ msg: "Something Something Soup" });
+    });
+
+    it("handling underscores property", async () => {
+      const res = await getTask1("Chicken_soup");
+      expect(res.body).toStrictEqual({ msg: "Chicken Soup" });
+    });
+
+    it("strips the numbers and signs correctly", async () => {
+      const res = await getTask1("Ch0a23 s@up");
+      expect(res.body).toStrictEqual({ msg: "Cha Sup" });
     });
   });
 });
@@ -93,6 +106,43 @@ describe("Task 2", () => {
       });
       expect(resp3.status).toBe(400);
     });
+
+    it("Rejects invalid required items", async () => {
+      const resp = await putTask2({
+        type: "recipe",
+        name: "Invalid Recipe",
+        requiredItems: [{ name: "chicken", quantity: 0 }],
+      });
+      expect(resp.status).toBe(400);
+    });
+
+    it("reject duplicate required items", async () => {
+      const resp = await putTask2({
+        type: "recipe",
+        name: "Invalid Recipe",
+        requiredItems: [
+          { name: "chicken", quantity: 2 },
+          { name: "chicken", quantity: 1 },
+        ],
+      });
+      expect(resp.status).toBe(400);
+    });
+
+    it("handling signs in item names", async () => {
+      const resp = await putTask2({
+        type: "reci3312pe",
+        name: "Inv@!@#)!@#alid Recipe",
+        requiredItems: [{ name: "ch@ck@!@#en", quantity: 2 }],
+      });
+      expect(resp.status).toBe(200);
+
+      const resp2 = await putTask2({
+        type: "recipe",
+        name: "Invalid Recipe",
+        requiredItems: [{ name: "chicken", quantity: 2 }],
+      });
+      expect(resp2.status).toBe(400);
+    });
   });
 });
 
@@ -103,9 +153,7 @@ describe("Task 3", () => {
     };
 
     const getTask3 = async (name) => {
-      return await request("http://localhost:8080").get(
-        `/summary?name=${name}`
-      );
+      return await request("http://localhost:8080").get(`/summary?name=${name}`);
     };
 
     it("What is bro doing - Get empty cookbook", async () => {
@@ -119,6 +167,7 @@ describe("Task 3", () => {
         name: "beef",
         cookTime: 2,
       });
+      // console.log(resp);
       expect(resp.status).toBe(200);
 
       const resp2 = await getTask3("beef");
@@ -156,6 +205,41 @@ describe("Task 3", () => {
 
       const resp3 = await getTask3("Skibidi");
       expect(resp3.status).toBe(200);
+    });
+
+    it("Calculating nested recipe cook times", async () => {
+      await postEntry({ type: "ingredient", name: "Flour", cookTime: 1 });
+      await postEntry({ type: "ingredient", name: "Egg", cookTime: 3 });
+      await postEntry({ type: "ingredient", name: "Beef", cookTime: 5 });
+
+      await postEntry({
+        type: "recipe",
+        name: "Pasta",
+        requiredItems: [
+          { name: "Flour", quantity: 2 },
+          { name: "Egg", quantity: 1 },
+        ],
+      });
+
+      await postEntry({
+        type: "recipe",
+        name: "Pasta Dish",
+        requiredItems: [
+          { name: "Pasta", quantity: 2 },
+          { name: "Beef", quantity: 3 },
+        ],
+      });
+
+      const resp = await getTask3("Pasta Dish");
+      expect(resp.status).toBe(200);
+      // expect(resp.body).toHaveProperty("cookTime", 20);
+      expect(resp.body.ingredients).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ name: "Flour", quantity: 4 }),
+          expect.objectContaining({ name: "Egg", quantity: 2 }),
+          expect.objectContaining({ name: "Beef", quantity: 3 }),
+        ])
+      );
     });
   });
 });

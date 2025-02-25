@@ -38,7 +38,8 @@ source venv/bin/activate > /dev/null 2>&1
 pip install -r requirements.txt > /dev/null 2>&1
 
 # Start server in background
-python devdonalds.py > /dev/null 2>&1 &
+python devdonalds.py > server.log 2>&1 &
+# python devdonalds.py > /dev/null 2>&1 &
 SERVER_PID=$!
 
 # Wait for the server to be up
