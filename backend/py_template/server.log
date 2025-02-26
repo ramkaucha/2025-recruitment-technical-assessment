@@ -5,41 +5,72 @@
 [33mPress CTRL+C to quit[0m
  * Restarting with stat
  * Debugger is active!
- * Debugger PIN: 251-856-585
-127.0.0.1 - - [25/Feb/2025 23:02:34] "[33mGET / HTTP/1.1[0m" 404 -
-127.0.0.1 - - [25/Feb/2025 23:02:35] "[31m[1mGET /summary?name=nothing HTTP/1.1[0m" 400 -
+ * Debugger PIN: 142-114-682
+127.0.0.1 - - [26/Feb/2025 20:29:46] "[33mGET / HTTP/1.1[0m" 404 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /parse HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /parse HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /parse HTTP/1.1[0m" 400 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /parse HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /parse HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /parse HTTP/1.1" 200 -
+{'type': 'ingredient', 'name': 'Egg', 'cookTime': 6}
+Cookbook keys before: []
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+{'type': 'ingredient', 'name': 'Lettuce', 'cookTime': 1}
+Cookbook keys before: ['Egg']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+{'type': 'recipe', 'name': 'Meatball', 'requiredItems': [{'name': 'Beef', 'quantity': 1}]}
+Cookbook keys before: ['Egg', 'Lettuce']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+{'type': 'ingredient', 'name': 'beef', 'cookTime': -1}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
+{'type': 'pan', 'name': 'pan', 'cookTime': 20}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
+{'type': 'ingredient', 'name': 'Beef', 'cookTime': 10}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+{'type': 'ingredient', 'name': 'Beef', 'cookTime': 8}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
+{'type': 'recipe', 'name': 'Beef', 'cookTime': 8}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
+{'type': 'recipe', 'name': 'Invalid Recipe', 'requiredItems': [{'name': 'chicken', 'quantity': 0}]}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
+{'type': 'recipe', 'name': 'Invalid Recipe', 'requiredItems': [{'name': 'chicken', 'quantity': 2}, {'name': 'chicken', 'quantity': 1}]}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
+{'type': 'recipe', 'name': 'Inv@!@#)!@#alid Recipe A', 'requiredItems': [{'name': 'ch@ck@!@#en', 'quantity': 2}]}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+{'type': 'recipe', 'name': 'Invalid Recipe A', 'requiredItems': [{'name': 'chicken', 'quantity': 2}]}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef', 'Invalid Recipe A']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mGET /summary?name=nothing HTTP/1.1[0m" 400 -
 nothing
 {'type': 'ingredient', 'name': 'beef', 'cookTime': 2}
-Cookbook keys before: []
-127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
-127.0.0.1 - - [25/Feb/2025 23:02:35] "[31m[1mGET /summary?name=beef HTTP/1.1[0m" 400 -
-beef
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef', 'Invalid Recipe A']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
 {'type': 'recipe', 'name': 'Cheese', 'requiredItems': [{'name': 'Not Real', 'quantity': 1}]}
-Cookbook keys before: ['Beef']
-127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
-127.0.0.1 - - [25/Feb/2025 23:02:35] "[31m[1mGET /summary?name=Cheese HTTP/1.1[0m" 400 -
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef', 'Invalid Recipe A']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mGET /summary?name=Cheese HTTP/1.1[0m" 400 -
 Cheese
 {'type': 'recipe', 'name': 'Skibidi', 'requiredItems': [{'name': 'Bruh', 'quantity': 1}]}
-Cookbook keys before: ['Beef', 'Cheese']
-127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef', 'Invalid Recipe A', 'Cheese']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
 {'type': 'ingredient', 'name': 'Bruh', 'cookTime': 2}
-Cookbook keys before: ['Beef', 'Cheese', 'Skibidi']
-127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
-127.0.0.1 - - [25/Feb/2025 23:02:35] "GET /summary?name=Skibidi HTTP/1.1" 200 -
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef', 'Invalid Recipe A', 'Cheese', 'Skibidi']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "GET /summary?name=Skibidi HTTP/1.1" 200 -
 Skibidi
-{'type': 'ingredient', 'name': 'Flour', 'cookTime': 1}
-Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh']
-127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
-{'type': 'ingredient', 'name': 'Egg', 'cookTime': 3}
-Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh', 'Flour']
-127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
-{'type': 'ingredient', 'name': 'Beef', 'cookTime': 5}
-Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh', 'Flour', 'Egg']
-127.0.0.1 - - [25/Feb/2025 23:02:35] "[31m[1mPOST /entry HTTP/1.1[0m" 400 -
-{'type': 'recipe', 'name': 'Pasta', 'requiredItems': [{'name': 'Flour', 'quantity': 2}, {'name': 'Egg', 'quantity': 1}]}
-Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh', 'Flour', 'Egg']
-127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
-{'type': 'recipe', 'name': 'Pasta Dish', 'requiredItems': [{'name': 'Pasta', 'quantity': 2}, {'name': 'Beef', 'quantity': 3}]}
-Cookbook keys before: ['Beef', 'Cheese', 'Skibidi', 'Bruh', 'Flour', 'Egg', 'Pasta']
-127.0.0.1 - - [25/Feb/2025 23:02:35] "POST /entry HTTP/1.1" 200 -
-127.0.0.1 - - [25/Feb/2025 23:02:35] "GET /summary?name=Pasta%20Dish HTTP/1.1" 200 -
+{'type': 'recipe', 'name': 'ARecipe', 'requiredItems': [{'name': 'BRecipe', 'quantity': 1}]}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef', 'Invalid Recipe A', 'Cheese', 'Skibidi', 'Bruh']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+{'type': 'recipe', 'name': 'BRecipe', 'requiredItems': [{'name': 'ARecipe', 'quantity': 1}]}
+Cookbook keys before: ['Egg', 'Lettuce', 'Meatball', 'Beef', 'Invalid Recipe A', 'Cheese', 'Skibidi', 'Bruh', 'Arecipe']
+127.0.0.1 - - [26/Feb/2025 20:29:47] "POST /entry HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2025 20:29:47] "[31m[1mGET /summary?name=RecipeA HTTP/1.1[0m" 400 -
