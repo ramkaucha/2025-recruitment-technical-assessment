@@ -2,9 +2,10 @@
 
 # DevSoc Subcommittee Recruitment: Chaos Backend
 
-***Complete as many questions as you can.***
+**_Complete as many questions as you can._**
 
 ## Question 1
+
 You have been given a skeleton function `process_data` in the `data.rs` file.
 Complete the parameters and body of the function so that given a JSON request of the form
 
@@ -15,6 +16,7 @@ Complete the parameters and body of the function so that given a JSON request of
 ```
 
 the handler returns the following JSON:
+
 ```json
 {
   "string_len": 11,
@@ -27,39 +29,43 @@ Edit the `DataResponse` and `DataRequest` structs as you need.
 ## Question 2
 
 ### a)
+
 Write (Postgres) SQL `CREATE TABLE` statements to create the following schema.
 Make sure to include foreign keys for the relationships that will `CASCADE` upon deletion.
 ![Database Schema](db_schema.png)
 
 **Answer box:**
+
 ```sql
 CREATE TABLE forms (
-    id		int,
-    title	text,
-    description	text,
+    id		      INTEGER,
+    title	      TEXT NOT NULL,
+    description	TEXT,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE questions (
-    id			int,
-    form_id		int,
-    title		text,
-    question_type	question_type,
+    id			      INTEGER,
+    form_id		    INTEGER NOT NULL,
+    title		      TEXT NOT NULL,
+    question_type	QUESTION_TYPE NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (form_id) REFERENCES forms(id)
+    FOREIGN KEY (form_id) REFERENCES forms(id) ON DELETE CASCADE
 );
 
 CREATE TABLE question_options (
-    id		int,
-    question_id	int,
-    option	text,
+    id		      INTEGER,
+    question_id	INTEGER NOT NULL,
+    option	    TEXT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (question_id) REFERENCES questions(id)
+    FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );
 ```
 
 ### b)
+
 Using the above schema, write a (Postgres) SQL `SELECT` query to return all questions in the following format, given the form id `26583`:
+
 ```
    id    |   form_id   |           title             |   question_type   |     options
 ------------------------------------------------------------------------------------------------------------
@@ -69,10 +75,17 @@ Using the above schema, write a (Postgres) SQL `SELECT` query to return all ques
 ```
 
 **Answer box:**
+
 ```sql
-SELECT		q.id, q.form_id, q.title, q.question_type, array_agg(qo.option) AS options
-FROM		questions q
+SELECT		q.id, q.form_id, q.title, q.question_type,
+          CASE
+            WHEN COUNT(qo.option) = 0 THEN '[null]'::text[]
+            ELSE array_agg(qo.option)
+          END AS options
+FROM		  questions q
 LEFT JOIN	question_options qo ON q.id = qo.question_id
-GROUP BY	q.id
+WHERE     q.form_id = 26583
+GROUP BY	q.id, q.form_id, q.title, q.question_type
+ORDER BY  q.id
 ;
 ```

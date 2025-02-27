@@ -1,0 +1,4 @@
+Frontend Repo URL: https://github.com/ramkaucha/2025-recruitment-technical-assessment/tree/main/frontend/freerooms
+
+npm i
+npm run dev
