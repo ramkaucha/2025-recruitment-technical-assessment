@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { IoStarSharp } from "react-icons/io5";
+import { GoDot, GoDotFill } from "react-icons/go";
 
 const BUILDINGS = [
   {
@@ -62,19 +63,35 @@ export default function RoomList() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 py-5">
       {buildings.map((item) => (
-        <div key={item.name} className="border rounded-md">
+        <div key={item.name} className="border rounded-xl">
           <div
-            className="relative aspect-[19/20] w-full bg-center bg-cover flex flex-col"
+            className="relative aspect-[5/1] md:aspect-[19/20] sm:aspect-[10/7] w-full bg-center bg-cover flex flex-row justify-between sm:flex-col rounded-xl"
             style={{ backgroundImage: `url(${item.building_picture})` }}
           >
-            <div className="flex justify-end p-2">
-              <div className="bg-white p-2 rounded-md shadow-md">Content</div>
+            <div className="flex p-2 order-2 sm:order-1 items-center sm:justify-end">
+              <div className="bg-white p-3 rounded-2xl font-semibold shadow-md text-sm flex justify-between gap-2">
+                <GoDotFill
+                  className={`h-5 w-5 ${
+                    item.rooms_available > 5 ? "text-green-700" : "text-yellow-400"
+                  }`}
+                />
+                <span className="hidden sm:inline">
+                  {item.rooms_available} {item.rooms_available > 1 ? "rooms" : "room"} available
+                </span>
+                <span className="sm:hidden">
+                  {item.rooms_available} / {item.rooms_available}
+                </span>
+              </div>
             </div>
 
-            <div className="flex-grow"></div>
+            <div className="sm:flex-grow hidden sm:order-2"></div>
 
-            <div className="bg-white bg-opacity-80 p-3 mt-auto">
-              <div className="font-semibold">Something</div>
+            <div className="order-1 sm:order-3 justify-center sm:bg-orange-500 p-4 md:p-5 mt-auto rounded-xl m-3 flex items-center sm:justify-between">
+              <div className="font-bold text-white text-md">{item.name}</div>
+              <div className="text-white font-bold text-lg hidden md:flex justify-between gap-1">
+                <span>0</span>
+                <IoStarSharp className="h-6 w-6 text-yellow-400" />
+              </div>
             </div>
           </div>
         </div>

@@ -3,12 +3,10 @@
 import Image from "next/image";
 import { GoSearch } from "react-icons/go";
 import { MdGridView, MdDarkMode } from "react-icons/md";
-import { IoMdHeartEmpty, IoMdMap } from "react-icons/io";
-import { FaDoorOpen } from "react-icons/fa";
+import { IoMdMap } from "react-icons/io";
 import { useState } from "react";
 import logoOpen from "@/assets/freeRoomsLogo.png";
 import logoClose from "@/assets/freeroomsDoorClosed.png";
-import { handleClientScriptLoad } from "next/script";
 
 const NAVPAGES = [
   {
@@ -22,12 +20,6 @@ const NAVPAGES = [
     route: "/",
     current: false,
     icon: MdGridView,
-  },
-  {
-    name: "list",
-    route: "/list",
-    current: false,
-    icon: FaDoorOpen,
   },
   {
     name: "map",
@@ -63,7 +55,7 @@ export default function Navigation() {
 
   return (
     <div className="flex justify-between items-center w-full px-5 py-2 border-b">
-      <div className="flex items-center">
+      <div className="flex items-center text-orange-500">
         <Image
           src={logo}
           alt="Freeroom's logo"
@@ -72,7 +64,7 @@ export default function Navigation() {
           onClick={() => handleLogoClick()}
           className="cursor-pointer"
         />
-        <span className="text-3xl">Freerooms</span>
+        <span className="text-3xl hidden sm:block">Freerooms</span>
       </div>
       <div className="flex gap-3">
         {pages.map((item) => (
