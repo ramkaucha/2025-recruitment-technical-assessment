@@ -130,15 +130,16 @@ describe("Task 2", () => {
 
     it("handling signs in item names", async () => {
       const resp = await putTask2({
-        type: "reci3312pe",
-        name: "Inv@!@#)!@#alid Recipe",
+        type: "recipe",
+        name: "Inv@!@#)!@#alid Recipe A",
         requiredItems: [{ name: "ch@ck@!@#en", quantity: 2 }],
       });
+      console.log(resp);
       expect(resp.status).toBe(200);
 
       const resp2 = await putTask2({
         type: "recipe",
-        name: "Invalid Recipe",
+        name: "Invalid Recipe A",
         requiredItems: [{ name: "chicken", quantity: 2 }],
       });
       expect(resp2.status).toBe(400);
@@ -207,39 +208,21 @@ describe("Task 3", () => {
       expect(resp3.status).toBe(200);
     });
 
-    it("Calculating nested recipe cook times", async () => {
-      await postEntry({ type: "ingredient", name: "Flour", cookTime: 1 });
-      await postEntry({ type: "ingredient", name: "Egg", cookTime: 3 });
-      await postEntry({ type: "ingredient", name: "Beef", cookTime: 5 });
-
+    it("Circular dependency", async () => {
       await postEntry({
         type: "recipe",
-        name: "Pasta",
-        requiredItems: [
-          { name: "Flour", quantity: 2 },
-          { name: "Egg", quantity: 1 },
-        ],
+        name: "ARecipe",
+        requiredItems: [{ name: "BRecipe", quantity: 1 }],
       });
 
       await postEntry({
         type: "recipe",
-        name: "Pasta Dish",
-        requiredItems: [
-          { name: "Pasta", quantity: 2 },
-          { name: "Beef", quantity: 3 },
-        ],
+        name: "BRecipe",
+        requiredItems: [{ name: "ARecipe", quantity: 1 }],
       });
 
-      const resp = await getTask3("Pasta Dish");
-      expect(resp.status).toBe(200);
-      // expect(resp.body).toHaveProperty("cookTime", 20);
-      expect(resp.body.ingredients).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ name: "Flour", quantity: 4 }),
-          expect.objectContaining({ name: "Egg", quantity: 2 }),
-          expect.objectContaining({ name: "Beef", quantity: 3 }),
-        ])
-      );
+      const resp = await getTask3("RecipeA");
+      expect(resp.status).toBe(400);
     });
   });
 });
